@@ -1,0 +1,20 @@
+program   
+var a1,b2:int ,  c1: bool ;
+begin
+read(a1);
+b2:=3;
+c1:=true;
+if c1 then begin a1:=a1+1 end else begin a1:=a1-1 end;
+while b2<a1 do begin b2:=b2+1 end;
+write(a1);
+repeat begin 
+	b2:=b2+1;write(b2);repeat begin a1:=a1+1;a1:=a1 end 
+	until a1>=30
+	 end 
+until b2=40;
+write(b2);
+write(a1);
+a1:=(100*b2)+a1;
+write(a1)
+
+end@

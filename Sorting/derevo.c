@@ -1,0 +1,129 @@
+//#include <stdio.h>
+//#include <stdlib.h>
+
+typedef struct List * mist;
+typedef struct List {int element; mist lev; mist prav;} tist;
+typedef mist der;
+
+der  preobr(der,int[],int);
+void dobll(mist,int);
+void dobpl(mist,int);
+void vstav(mist,int);
+void pecht(der);
+void dlin(der,int *);
+void vmas(der, int*,int*);
+void udalder(mist);
+
+/*void main(void)
+{
+	der d,t;
+	d=(der)malloc(sizeof(tist));
+        int a[10]={6,4,7,3,45,7,42,6,8,56};
+	printf("%ddo\n",d);
+	d=preobr(d,a,10);
+	int i,j;
+	printf("\n%dpos\n",d);
+	for(i=0;i<10;i++)printf("%d ",a[i]);printf("\n");
+	pecht(d);
+	i=0;j=0;
+	dlin(d,&i);
+	printf("\n%d\n",i);
+	vmas(d,a,&j);
+	for(i=0;i<10;i++)printf("%d ",a[i]);
+}
+*/
+
+void udalder(mist q)
+{
+	if(q!=NULL)
+	{
+		if(q->lev!=NULL){udalder(q->lev);}
+		if(q->prav!=NULL){udalder(q->prav);}
+		free(q);
+	}
+}
+
+der preobr(der y,int a[],int i)
+{
+	der d;
+	mist q;
+	int j=0;
+	d=(der)malloc(sizeof(tist));
+	d->element=a[j];
+	d->lev=NULL;
+	d->prav=NULL;
+	for(j=1;j<i;j++)
+	{
+		q=d;	
+//		printf("%d-%d\n",a[j],q);
+		vstav(q,a[j]);
+	}
+	y=d;
+//	printf("\nfu%d",y);
+	return(y);
+}
+
+void  vmas(der d,int* a,int *j)
+{
+	der q;
+	q=d;
+	if(q->lev!=NULL)vmas(q->lev,a,j);
+	a[(*j)]=q->element;(*j)++;
+	if(q->prav!=NULL)vmas(q->prav,a,j);
+
+}
+
+void vstav(mist q,int i)
+{
+	if(q->element>i)
+	{
+		if (q->lev==NULL) dobll(q,i);
+		else vstav(q->lev,i);
+	}
+	else
+	{
+		if (q->prav==NULL) dobpl(q,i);
+		else vstav(q->prav,i);
+	}
+}
+
+void dobll(mist e,int i)
+{
+	mist q;
+	q=(mist)malloc(sizeof(tist));
+	q->element=i;
+	q->lev=NULL;
+	q->prav=NULL;
+//	printf("%d-",e->lev);
+	e->lev=q;
+//	printf("%d-%d\n",q->element,e->lev);
+}
+void dobpl(mist e,int i)
+{
+	mist q;
+	q=(mist)malloc(sizeof(tist));
+	q->element=i;
+	q->lev=NULL;
+	q->prav=NULL;
+//	printf("%d-",e->prav);
+	e->prav=q;
+//	printf("%d-%d\n",q->element,e->prav);
+}
+
+void pecht(der d)
+{
+	der q;
+	q=d;
+	if(q->lev!=NULL)pecht(q->lev);
+	printf("%d ",q->element);
+	if(q->prav!=NULL)pecht(q->prav);
+}
+
+void dlin(der d,int *i)
+{
+	der q;
+	q=d;
+	if(q->lev!=NULL)dlin(q->lev,i);
+	(*i)++;
+	if(q->prav!=NULL)dlin(q->prav,i);
+}
